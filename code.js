@@ -3,21 +3,15 @@ let attempts = 0;
 let message = document.getElementById('message');
 let help = document.getElementById('help_p');
 let remember = document.getElementById("remember");
+let attemptDisplayer = document.getElementById('attempts');
+let guessInput = document.getElementById('guess-input');
 
 document.getElementById('guess-button').addEventListener('click', checkGuess);
 document.getElementById('restart-button').addEventListener('click', restartGame);
 
 function checkGuess() {
 
-    if (attempts == 3) 
-    {
-        return;
-    }
-
-    const guessInput = document.getElementById('guess-input');
     const guess = Number(guessInput.value);
-    attempts++;
-    document.getElementById('attempts').textContent = `Attempts: ${attempts}`;
 
     if (guess === randomNumber) 
     {
@@ -34,6 +28,9 @@ function checkGuess() {
         message.innerText  = 'Too high! Try again.';
     }
 
+    attempts++;
+    attemptDisplayer.innerText = `Attempts: ${attempts}`;
+
     if (attempts==2) 
     {
         areYouClose();
@@ -47,12 +44,6 @@ function checkGuess() {
         help.innerText = "";
         remember.innerText = "";
     }
-
-    if (attempts>3) 
-    {
-        alert("Sorry you need to restart the game again");
-    }
-
 }
 
 function restartGame() {
@@ -62,8 +53,8 @@ function restartGame() {
     help.innerText = "I will try to help you if you struggle";
     message.innerText = 'Guess a number between 1 and 100';
     remember.innerHTML="<strong>Remember:</strong>You have only 3 attempts.";
-    document.getElementById('attempts').textContent = 'Attempts: 0';
-    document.getElementById('guess-input').value = '';
+    attemptDisplayer.innerText = 'Attempts: 0';
+    guessInput.value = '';
     enableGame();
 }
 

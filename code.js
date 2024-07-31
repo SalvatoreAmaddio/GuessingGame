@@ -1,5 +1,8 @@
 let randomNumber = Math.floor(Math.random() * 100) + 1;
 let attempts = 0;
+let message = document.getElementById('message');
+let help = document.getElementById('help_p');
+let remember = document.getElementById("remember");
 
 document.getElementById('guess-button').addEventListener('click', checkGuess);
 document.getElementById('restart-button').addEventListener('click', restartGame);
@@ -16,14 +19,19 @@ function checkGuess() {
     attempts++;
     document.getElementById('attempts').textContent = `Attempts: ${attempts}`;
 
-    if (guess === randomNumber) {
-        document.getElementById('message').textContent = 'Congratulations! You guessed the correct number! Restart the game to play again.';
+    if (guess === randomNumber) 
+    {
+        message.innerText = 'Congratulations! You guessed the correct number! Restart the game to play again.';
         disableGame();
         return;
-    } else if (guess < randomNumber) {
-        document.getElementById('message').textContent = 'Too low! Try again.';
-    } else if (guess > randomNumber) {
-        document.getElementById('message').textContent = 'Too high! Try again.';
+    } 
+    else if (guess < randomNumber) 
+    {
+        message.innerText  = 'Too low! Try again.';
+    } 
+    else if (guess > randomNumber) 
+    {
+        message.innerText  = 'Too high! Try again.';
     }
 
     if (attempts==2) 
@@ -34,7 +42,10 @@ function checkGuess() {
     if (attempts==3) 
     {
         disableGame();
-        document.getElementById('message').textContent = 'Sorry you lost :(. The answer was ' + randomNumber;
+        message.innerText = 'Sorry you lost :(. The answer was ' + randomNumber;
+        message.style = "color: red;"
+        help.innerText = "";
+        remember.innerText = "";
     }
 
     if (attempts>3) 
@@ -47,7 +58,10 @@ function checkGuess() {
 function restartGame() {
     randomNumber = Math.floor(Math.random() * 100) + 1;
     attempts = 0;
-    document.getElementById('message').textContent = 'Guess a number between 1 and 100';
+    message.style = ""
+    help.innerText = "I will try to help you if you struggle";
+    message.innerText = 'Guess a number between 1 and 100';
+    remember.innerHTML="<strong>Remember:</strong>You have only 3 attempts.";
     document.getElementById('attempts').textContent = 'Attempts: 0';
     document.getElementById('guess-input').value = '';
     enableGame();
